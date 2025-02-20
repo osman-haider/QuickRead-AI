@@ -18,14 +18,12 @@ def summarize_text(text: str) -> str:
 def answer_question(text: str, question: str) -> str:
     # Generate an answer using Gemini
     prompt = f"""
-    Answer the following Question from the given context. Don't write any extra information make the Answer readable and clear accourding to the Question. Do not add unnecessary details or assumptions in Answer by your own.
+    Act as Rag Assistant, Your task is to answer the question: {question} out of the context: {text}. Here's the instruction you need to keep in mind while generating answer.
+    - Respond in clear, error free english.
+    - Summarize your response into 1-2 lines, make sure you fulfill the question requirement
+    - Make sure you respond only from context: {text}
+    - Do not add this in your response `the provided context says this etc.`
 
-    Context: {text}
-
-    Question: {question}
-
-    Answer:
-    """
+"""
     response = model.generate_content(prompt)
-    print(f"response.text: {response.text}")
     return response.text
